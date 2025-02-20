@@ -107,6 +107,46 @@ def delete_all_tasks(tasks):
     else:
         print("Operation cancelled.")
 
+def search_tasks(tasks):
+    keyword = input("Enter keyword, category, or priority to search: ").strip().lower()
+    results = [task for task in tasks if keyword in task["title"].lower() or keyword in task["category"].lower() or keyword == task["priority"].lower()]
+
+    if results:
+        show_tasks(results)
+    else:
+        print("No matching tasks found.")
+
+def clear_completed_tasks(tasks):
+    tasks[:] = [task for task in tasks if not task["completed"]]
+    print("All completed tasks have been removed!")
+
+def main():
+    tasks = load_tasks()
+
+    while True:
+        print("\nTo-Do List Application")
+        print("1. View Tasks")
+        print("2. Add Task")
+        ...
+        print("10. Exit")
+
+        try:
+            choice = input("Choose an option: ").strip()
+
+            if choice == "1":
+                show_tasks(tasks)
+            elif choice == "10":
+                save_tasks(tasks)
+                print("Goodbye!")
+                break
+            else:
+                print("Invalid option, please try again.")
+        except OSError as e:
+            print(f"Error occurred: {e}")
+
+if __name__ == "__main__":
+    main()
+
 
 
 
