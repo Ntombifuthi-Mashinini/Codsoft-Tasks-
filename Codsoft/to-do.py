@@ -10,7 +10,7 @@ def save_tasks(tasks):
     global in_memory_tasks
     in_memory_tasks = tasks
 
-    def show_tasks(tasks):
+def show_tasks(tasks):
     if not tasks:
         print("No tasks available. Add a new task!")
     else:
@@ -20,19 +20,19 @@ def save_tasks(tasks):
             priority = task.get("priority", "None")
             category = task.get("category", "General")
             due_date = task.get("due_date", "No due date")
-            
+
             overdue = "(Overdue!)" if not task["completed"] and task.get("due_date") and datetime.strptime(task["due_date"], "%Y-%m-%d") < datetime.now() else ""
-            
+
             print(f"{i}. {status} {task['title']} (Priority: {priority}, Category: {category}, Due: {due_date}) {overdue}")
-        
+
         show_progress(tasks)
 
-        def show_progress(tasks):
+def show_progress(tasks):
     total = len(tasks)
     completed = sum(1 for task in tasks if task["completed"])
     print(f"\nProgress: {completed}/{total} tasks completed")
 
-    def add_task(tasks):
+def add_task(tasks):
     title = input("Enter the task: ").strip()
     priority = input("Set priority (High/Medium/Low): ").strip().capitalize()
     category = input("Enter category (e.g., Work, Home): ").strip().capitalize()
@@ -49,7 +49,7 @@ def save_tasks(tasks):
     tasks.append(new_task)
     print("Task added successfully!")
 
-    def update_task(tasks):
+def update_task(tasks):
     show_tasks(tasks)
     try:
         task_num = int(input("Enter the task number to update: ")) - 1
@@ -76,7 +76,7 @@ def complete_task(tasks):
     except ValueError:
         print("Please enter a valid number!")
 
-        undo_stack = []
+undo_stack = []
 
 def delete_task(tasks):
     show_tasks(tasks)
@@ -120,6 +120,36 @@ def clear_completed_tasks(tasks):
     tasks[:] = [task for task in tasks if not task["completed"]]
     print("All completed tasks have been removed!")
 
+def simple_calculator():
+    print("\nSimple Calculator")
+    try:
+        num1 = float(input("Enter the first number: "))
+        num2 = float(input("Enter the second number: "))
+
+        print("Choose an operation:")
+        print("1. Addition (+)")
+        print("2. Subtraction (-)")
+        print("3. Multiplication (*)")
+        print("4. Division (/)")
+
+        operation = input("Enter your choice (1/2/3/4): ")
+
+        if operation == "1":
+            print(f"Result: {num1 + num2}")
+        elif operation == "2":
+            print(f"Result: {num1 - num2}")
+        elif operation == "3":
+            print(f"Result: {num1 * num2}")
+        elif operation == "4":
+            if num2 != 0:
+                print(f"Result: {num1 / num2}")
+            else:
+                print("Error: Division by zero is not allowed.")
+        else:
+            print("Invalid operation.")
+    except ValueError:
+        print("Invalid input. Please enter numbers only.")
+
 def main():
     tasks = load_tasks()
 
@@ -127,15 +157,40 @@ def main():
         print("\nTo-Do List Application")
         print("1. View Tasks")
         print("2. Add Task")
-        ...
-        print("10. Exit")
+        print("3. Update Task")
+        print("4. Mark Task Complete")
+        print("5. Delete Task")
+        print("6. Undo Delete")
+        print("7. Search Tasks")
+        print("8. Clear Completed Tasks")
+        print("9. Delete All Tasks")
+        print("10. Simple Calculator")
+        print("11. Exit")
 
         try:
             choice = input("Choose an option: ").strip()
 
             if choice == "1":
                 show_tasks(tasks)
+            elif choice == "2":
+                add_task(tasks)
+            elif choice == "3":
+                update_task(tasks)
+            elif choice == "4":
+                complete_task(tasks)
+            elif choice == "5":
+                delete_task(tasks)
+            elif choice == "6":
+                undo_last_delete(tasks)
+            elif choice == "7":
+                search_tasks(tasks)
+            elif choice == "8":
+                clear_completed_tasks(tasks)
+            elif choice == "9":
+                delete_all_tasks(tasks)
             elif choice == "10":
+                simple_calculator()
+            elif choice == "11":
                 save_tasks(tasks)
                 print("Goodbye!")
                 break
@@ -146,8 +201,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-
-
-
