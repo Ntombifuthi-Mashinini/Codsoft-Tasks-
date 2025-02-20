@@ -76,6 +76,38 @@ def complete_task(tasks):
     except ValueError:
         print("Please enter a valid number!")
 
+        undo_stack = []
+
+def delete_task(tasks):
+    show_tasks(tasks)
+    try:
+        task_num = int(input("Enter the task number to delete: ")) - 1
+        if 0 <= task_num < len(tasks):
+            deleted_task = tasks.pop(task_num)
+            undo_stack.append(deleted_task)
+            print(f"Deleted: {deleted_task['title']}. Type 'undo' to restore.")
+        else:
+            print("Invalid task number!")
+    except ValueError:
+        print("Please enter a valid number!")
+
+def undo_last_delete(tasks):
+    if undo_stack:
+        restored_task = undo_stack.pop()
+        tasks.append(restored_task)
+        print("Task restored successfully!")
+    else:
+        print("No task to restore!")
+
+def delete_all_tasks(tasks):
+    confirmation = input("Are you sure you want to delete all tasks? (yes/no): ").strip().lower()
+    if confirmation == "yes":
+        tasks.clear()
+        print("All tasks have been deleted!")
+    else:
+        print("Operation cancelled.")
+
+
 
 
 
