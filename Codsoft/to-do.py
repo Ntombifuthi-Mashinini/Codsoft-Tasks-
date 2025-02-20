@@ -49,5 +49,33 @@ def save_tasks(tasks):
     tasks.append(new_task)
     print("Task added successfully!")
 
+    def update_task(tasks):
+    show_tasks(tasks)
+    try:
+        task_num = int(input("Enter the task number to update: ")) - 1
+        if 0 <= task_num < len(tasks):
+            tasks[task_num]["title"] = input("Enter the updated task: ").strip()
+            tasks[task_num]["priority"] = input("Update priority (High/Medium/Low): ").strip().capitalize()
+            tasks[task_num]["category"] = input("Update category: ").strip().capitalize()
+            tasks[task_num]["due_date"] = input("Update due date (YYYY-MM-DD, optional): ").strip()
+            print("Task updated successfully!")
+        else:
+            print("Invalid task number!")
+    except ValueError:
+        print("Please enter a valid number!")
+
+def complete_task(tasks):
+    show_tasks(tasks)
+    try:
+        task_num = int(input("Enter the task number to mark complete: ")) - 1
+        if 0 <= task_num < len(tasks):
+            tasks[task_num]["completed"] = True
+            print("Task marked as complete!")
+        else:
+            print("Invalid task number!")
+    except ValueError:
+        print("Please enter a valid number!")
+
+
 
 
