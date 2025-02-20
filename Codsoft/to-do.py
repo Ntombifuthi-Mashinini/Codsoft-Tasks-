@@ -27,3 +27,9 @@ def save_tasks(tasks):
         
         show_progress(tasks)
 
+        def show_progress(tasks):
+    total = len(tasks)
+    completed = sum(1 for task in tasks if task["completed"])
+    print(f"\nProgress: {completed}/{total} tasks completed")
+
+
