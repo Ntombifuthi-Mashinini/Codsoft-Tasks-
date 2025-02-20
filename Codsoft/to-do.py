@@ -32,4 +32,22 @@ def save_tasks(tasks):
     completed = sum(1 for task in tasks if task["completed"])
     print(f"\nProgress: {completed}/{total} tasks completed")
 
+    def add_task(tasks):
+    title = input("Enter the task: ").strip()
+    priority = input("Set priority (High/Medium/Low): ").strip().capitalize()
+    category = input("Enter category (e.g., Work, Home): ").strip().capitalize()
+    due_date = input("Enter due date (YYYY-MM-DD, optional): ").strip()
+
+    new_task = {
+        "title": title,
+        "completed": False,
+        "priority": priority if priority in ["High", "Medium", "Low"] else "Medium",
+        "category": category if category else "General",
+        "due_date": due_date if due_date else "No due date"
+    }
+
+    tasks.append(new_task)
+    print("Task added successfully!")
+
+
 
