@@ -14,5 +14,24 @@ def calculator():
         try:
     except ValueError:
         print("Invalid input. Please enter numeric values.")
+    
+        if operation == '+':
+        result = num1 + num2
+        print(f"{num1} + {num2} = {result}")
+
+    elif operation == '-':
+        result = num1 - num2
+        print(f"{num1} - {num2} = {result}")
+
+    elif operation == '*':
+        result = num1 * num2
+        print(f"{num1} * {num2} = {result}")
+
+    else:
+        print("Invalid operation. Please choose +, -, *, or /.")
+
+if __name__ == "__main__":
+    calculator()
+
 
 
